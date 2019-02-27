@@ -1,0 +1,59 @@
+entrada_1 = "678.32 1234 hola mundo234 34 + - "
+arreglo = []
+lista_1 = []
+contador = 0;
+conteo = 0
+
+def Separador(arreglo, contador):
+    for x in range(len(entrada_1)):
+        lista_1.insert(x, entrada_1[x])
+        
+    space = 0
+    for x in range(contador,len(entrada_1)):
+        if entrada_1[x] != ' ':
+            arreglo.insert(space, entrada_1[x])
+            space += 1
+        else:
+            y = x + 1
+            break;      
+    return y
+
+def Identificador(arreglo):
+    
+    #REVISA ENTEROS Y REALES
+    if '1' <= arreglo[0] <= '9':
+        for x in range(0, len(arreglo)):  
+            if arreglo[x] == '.':
+                a = 1;
+                break;
+            else:
+                a = 0
+                
+        if a == 1:
+            Reales = "".join(arreglo)
+            dic_Real = dict([('Real', Reales)])
+            print(dic_Real)
+            a = 0
+        else:
+            Entero = "".join(arreglo)
+            dic_Entero = dict([('Entero', Entero)])
+            print(dic_Entero)
+            a = 0
+    
+    #REVISA ID'S
+    if 'a' <= arreglo[0] <= 'z':
+        for x in range(0, len(arreglo)):
+            ID = "".join(arreglo)
+            dic_ID = dict([('ID', ID)])
+        print(dic_ID)
+        
+    #REVISA OPERANDOS
+    if arreglo[0] == '+' or arreglo[0] == '-':
+        OP = "".join(arreglo)
+        dic_OP = dict([('OP', OP)])
+        print(dic_OP)
+
+while conteo < len(entrada_1):
+    conteo = Separador(arreglo, conteo)
+    Identificador(arreglo)
+    del arreglo[:]
