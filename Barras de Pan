@@ -1,0 +1,32 @@
+from pulp import *
+mi_lp_problema=pulp.LpProblem("Mi LP Problema", pulp.LpMinimize)
+
+xA1P1 = pulp.LpVariable('xA1P1', lowBound=0, cat='Continuous')
+xA1P2 = pulp.LpVariable('xA1P2', lowBound=0, cat='Continuous')
+xA1P3 = pulp.LpVariable('xA1P3', lowBound=0, cat='Continuous')
+xA2P1 = pulp.LpVariable('xA2P1', lowBound=0, cat='Continuous')
+xA2P2 = pulp.LpVariable('xA2P2', lowBound=0, cat='Continuous')
+xA2P3 = pulp.LpVariable('xA2P3', lowBound=0, cat='Continuous')
+
+
+#Objective function
+mi_lp_problema+=8*xA1P1 +6*xA1P2 +10*xA1P3 +10*xA2P1 +4*xA2P2 +9*xA2P3
+
+#Consraints
+mi_lp_problema += xA1P1 + xA1P2 + xA1P3 ==2000
+mi_lp_problema += xA2P1 + xA2P2 + xA2P3 ==2500
+mi_lp_problema += xA1P1 + xA2P1 ==1500
+mi_lp_problema += xA1P2 + xA2P2 ==2000
+mi_lp_problema += xA1P3 + xA2P3 ==1000
+mi_lp_problema += xA1P1>=0
+mi_lp_problema += xA1P2>=0
+mi_lp_problema += xA1P3>=0
+mi_lp_problema += xA2P1>=0
+mi_lp_problema += xA2P2>=0
+mi_lp_problema += xA2P3>=0
+
+mi_lp_problema.solve()
+pulp.LpStatus[mi_lp_problema.status]
+
+for variable in mi_lp_problema.variables():
+    print ("{}={}".format(variable.name, variable.varValue))
